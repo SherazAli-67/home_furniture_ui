@@ -9,6 +9,9 @@ class AppTextStyles {
     height: 1,
     letterSpacing: 1.56,
     color: AppColors.whiteColor,
+    shadows: [
+      Shadow(color: Color(0x59000000), offset: Offset(10, 5), blurRadius: 25),
+    ],
   );
 
   static const welcomeCta = TextStyle(

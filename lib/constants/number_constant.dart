@@ -45,9 +45,15 @@ class NumberConstant {
 
   static const welcomeCtaSize = 126.0;
   static const welcomeCtaOutlineSize = 133.0;
-  static const welcomeHeadlineTop = 62.0;
-  static const welcomeCtaBottom = 100.0;
+  static const welcomeHeadlineTop = 16.0;
+  static const welcomeCtaBottom = 48.0;
   static const welcomeLetsGoRotation = -0.302;
+  static const welcomeCtaHorizontalPadding = 14.0;
+  static const welcomeCtaVerticalPadding = 42.0;
+  static const welcomeCtaOutlineInset = 4.0;
+  static const welcomeArrowWidth = 165.0;
+  static const welcomeArrowHeight = 161.0;
+  static const welcomeHeadlineLineSpacing = 4.0;
   static const offerBadgeRadius = 9.0;
   static const offerBadgeHorizontalPadding = 11.0;
   static const offerBadgeVerticalPadding = 9.0;
