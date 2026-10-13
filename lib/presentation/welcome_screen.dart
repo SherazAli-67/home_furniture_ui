@@ -17,16 +17,17 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         fit: .expand,
         children: [
-          Image.asset(AssetRes.welcomeImg, fit: .cover, width: double.infinity, height: double.infinity),
+          //welcomeImg, fit.cover, widthHeight: .infinity
+          // Image.asset(AssetRes.welcomeImg, fit: .cover, width: double.infinity, height: double.infinity),
           const Positioned.fill(
             child: DecoratedBox(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+              /*  gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
                   colors: [AppColors.welcomeGradientEnd, AppColors.welcomeGradientStart],
                   stops: [0.38, 1],
-                ),
+                ),*/
               ),
             ),
           ),
@@ -58,9 +59,9 @@ class WelcomeScreen extends StatelessWidget {
       crossAxisAlignment: .start,
       spacing: NumberConstant.welcomeHeadlineLineSpacing,
       children: [
-        Text(StringConst.welcomeHeadlineExplore, style: AppTextStyles.welcomeHeadline),
-        Text(StringConst.welcomeHeadlineAndGet, style: AppTextStyles.welcomeHeadline),
-        Text(StringConst.welcomeHeadlineInspired, style: AppTextStyles.welcomeHeadline),
+        //welcomeHeadlineExplore, welcomeHeadline,
+        //welcomeHeadlineAndGet, welcomeHeadline,
+        //welcomeHeadlineInspired, welcomeHeadline
       ],
     );
   }
@@ -80,13 +81,14 @@ class WelcomeScreen extends StatelessWidget {
                 bottom: NumberConstant.welcomeCtaOutlineInset,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    shape: .circle,
-                    border: .all(color: AppColors.whiteColor, width: 1.5),
+                    // shape: .circle,
+                    // border: .all(color: AppColors.whiteColor, width: 1.5),
                   ),
                 ),
               ),
               DecoratedBox(
-                decoration: const BoxDecoration(color: AppColors.accentColor, shape: .circle),
+                //accentColor
+                decoration: const BoxDecoration(color: Colors.transparent, shape: .circle),
                 child: Padding(
                   padding: .symmetric(
                     horizontal: NumberConstant.welcomeCtaHorizontalPadding,
@@ -94,20 +96,21 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   child: Transform.rotate(
                     angle: NumberConstant.welcomeLetsGoRotation,
-                    child: Text(StringConst.welcomeCta, style: AppTextStyles.welcomeCta),
+                    //welcomeCta, welcomeCat
+                    child: const SizedBox()
                   ),
                 ),
               ),
             ],
           ),
-          Expanded(
+          /*Expanded(
             child: SvgPicture.asset(
               AssetRes.icLetsGoArrow,
               width: NumberConstant.welcomeArrowWidth,
               height: NumberConstant.welcomeArrowHeight,
               fit: .contain,
             ),
-          ),
+          ),*/
         ],
       ),
     );

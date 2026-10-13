@@ -53,7 +53,6 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
-    final cartCount = context.watch<CartProvider>().itemCount;
     return Row(
       crossAxisAlignment: .start,
       children: [
@@ -62,13 +61,15 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: .start,
             spacing: NumberConstant.homeHeaderSpacing,
             children: [
-              Text(StringConst.homeHeadlineLineOne, style: AppTextStyles.homeHeadline),
-              Text(StringConst.homeHeadlineLineTwo, style: AppTextStyles.homeHeadline),
+              //homeHeadlineOne, homeHeadline,
+
+              //homeHeadlineTwo, homeHeadline
             ],
           ),
         ),
         ClipOval(
-          child: Image.asset(AssetRes.profilePicture, height: 52, width: 52),
+          //profilePicture, 52
+          child: const SizedBox()
         )
       ],
     );
@@ -77,15 +78,15 @@ class HomeScreen extends StatelessWidget {
   Widget _buildSearchField(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.searchFillColor,
-        borderRadius: .circular(NumberConstant.searchFieldRadius),
+        // color: AppColors.searchFillColor,
+        // borderRadius: .circular(NumberConstant.searchFieldRadius),
       ),
       child: Padding(
         padding: .symmetric(horizontal: NumberConstant.searchIconPadding, vertical: NumberConstant.smallSpacing),
         child: Row(
           spacing: NumberConstant.smallSpacing,
           children: [
-            SvgPicture.asset(AssetRes.icSearch, colorFilter: .mode(AppColors.blackColor, .srcIn),),
+            //icSearch,
             Expanded(
               child: TextField(
                 onChanged: context.read<HomeProvider>().updateSearch,
@@ -94,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                 decoration: const InputDecoration(
                   isDense: true,
                   border: .none,
-                  hintText: StringConst.searchHint,
+                  hintText: '',
                   hintStyle: AppTextStyles.searchHint,
                 ),
               ),
@@ -118,8 +119,8 @@ class HomeScreen extends StatelessWidget {
             height: NumberConstant.bannerHeight,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: AppColors.blackColor,
-                borderRadius: .circular(NumberConstant.bannerRadius),
+                // color: AppColors.blackColor,
+                // borderRadius: .circular(NumberConstant.bannerRadius),
               ),
               child: Padding(
                 padding: .all(NumberConstant.bannerContentPadding),
@@ -131,8 +132,8 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: .start,
                       spacing: NumberConstant.homeHeaderSpacing,
                       children: [
-                        Text(StringConst.bannerTitleLineOne, style: AppTextStyles.bannerTitle),
-                        Text(StringConst.bannerTitleLineTwo, style: AppTextStyles.bannerTitle),
+                        //bannerTitleLineOne, bannerTitle,
+                        //bannerTitleLineTwo, bannerTitle,
                       ],
                     ),
                     Row(
@@ -140,18 +141,20 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         DecoratedBox(
                           decoration: BoxDecoration(
-                            color: AppColors.accentColor,
-                            borderRadius: .circular(NumberConstant.offerBadgeRadius),
+                            // color: AppColors.accentColor,
+                            // borderRadius: .circular(NumberConstant.offerBadgeRadius),
                           ),
                           child: Padding(
                             padding: .symmetric(
                               horizontal: NumberConstant.offerBadgeHorizontalPadding,
                               vertical: NumberConstant.offerBadgeVerticalPadding,
                             ),
-                            child: Text(StringConst.bannerOfferPercent, style: AppTextStyles.bannerOfferBadge),
+                            //bannerOfferPercent, bannerOfferBadge
+                            child: const SizedBox()
                           ),
                         ),
-                        Text(StringConst.bannerOfferLabel, style: AppTextStyles.bannerOfferLabel),
+                        //bannerOfferLabel, bannerOfferLabel
+
                       ],
                     ),
                   ],
@@ -160,10 +163,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            right: -NumberConstant.bannerImageOverflowRight,
-            top: -20,
+            // right: -NumberConstant.bannerImageOverflowRight,
+            // top: -20,
             height: NumberConstant.bannerHeight + NumberConstant.bannerImageOverflowTop + NumberConstant.bannerImageOverflowBottom,
-            child: Image.asset(AssetRes.classicBlackBanner, ),
+            child: const SizedBox()
+            //classBlackBannerImage
           ),
         ],
       ),
@@ -181,8 +185,8 @@ class HomeScreen extends StatelessWidget {
             onTap: () => context.read<HomeProvider>().selectCategory(category),
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.blackColor : AppColors.surfaceGrayColor,
-                borderRadius: .circular(NumberConstant.chipRadius),
+                // color: isSelected ? AppColors.blackColor : AppColors.surfaceGrayColor,
+                // borderRadius: .circular(NumberConstant.chipRadius),
               ),
               child: Padding(
                 padding: .symmetric(
@@ -190,7 +194,8 @@ class HomeScreen extends StatelessWidget {
                   vertical: NumberConstant.chipVerticalPadding,
                 ),
                 child: Center(
-                  child: Text(category, style: isSelected ? AppTextStyles.categorySelected : AppTextStyles.categoryUnselected),
+                  //category, isSelected ? categorySelected : categoryUnselected
+                  child: const SizedBox()
                 ),
               ),
             ),
@@ -242,17 +247,15 @@ class HomeScreen extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: .circular(NumberConstant.productCardRadius),
-                child: Image.asset(
-                  product.imageAsset,
-                  width: double.infinity,
-                  height: product.isTall ? NumberConstant.productCardTallHeight : NumberConstant.productCardShortHeight,
-                  fit: .cover,
-                ),
+                child: const SizedBox()
+                //product.imageAsset, width.infinity, height: product.isTall ? productTallHeight: productShortHeight, fit.cover
+
               ),
               Positioned(
                 top: NumberConstant.productFavoriteInset,
                 right: NumberConstant.productFavoriteInset,
-                child: FavoriteButton(productId: product.id),
+                child: const SizedBox(),
+                // child: FavoriteButton(productId: product.id),
               ),
             ],
           ),
@@ -260,8 +263,8 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: .start,
             spacing: NumberConstant.homeHeaderSpacing / 2,
             children: [
-              Text(product.price, style: AppTextStyles.productPrice),
-              Text(product.name, style: AppTextStyles.productName),
+              //product.price, productPrice
+              //product.name, productName
             ],
           ),
         ],
