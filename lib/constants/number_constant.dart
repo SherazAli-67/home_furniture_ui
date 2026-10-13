@@ -57,4 +57,15 @@ class NumberConstant {
   static const offerBadgeRadius = 9.0;
   static const offerBadgeHorizontalPadding = 11.0;
   static const offerBadgeVerticalPadding = 9.0;
+
+  static const homeSectionSpacing = 36.0;
+  static const homeHeaderSpacing = 12.0;
+  static const bannerTitleSpacing = 22.0;
+  static const productFavoriteInset = 13.0;
+  static const cartIconPadding = 12.0;
+  static const homeBottomPadding = 16.0;
+  static const bannerImageWidth = 210.0;
+  static const bannerImageOverflowRight = 24.0;
+  static const bannerImageOverflowTop = 32.0;
+  static const bannerImageOverflowBottom = 24.0;
 }

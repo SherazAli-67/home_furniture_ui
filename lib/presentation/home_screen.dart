@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:home_furniture_ui/constants/number_constant.dart';
 import 'package:home_furniture_ui/constants/string_const.dart';
+import 'package:home_furniture_ui/core/app_colors.dart';
+import 'package:home_furniture_ui/core/app_data.dart';
+import 'package:home_furniture_ui/core/app_textstyles.dart';
+import 'package:home_furniture_ui/core/asset_res.dart';
+import 'package:home_furniture_ui/core/models/product_model.dart';
+import 'package:home_furniture_ui/presentation/widgets/favorite_button.dart';
+import 'package:home_furniture_ui/providers/cart_provider.dart';
+import 'package:home_furniture_ui/providers/home_provider.dart';
+import 'package:home_furniture_ui/routing/router.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -7,7 +20,269 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(StringConst.homeHeadlineLineOne),),
+      body: SafeArea(
+        child: CustomScrollView(
+          clipBehavior: .none,
+          slivers: [
+            SliverPadding(
+              padding: .fromLTRB(
+                NumberConstant.horizontalPadding,
+                NumberConstant.contentSpacing,
+                NumberConstant.horizontalPadding,
+                NumberConstant.homeBottomPadding,
+              ),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  spacing: NumberConstant.homeSectionSpacing,
+                  children: [
+                    _buildHeader(context),
+                    _buildSearchField(context),
+                    _buildBanner(),
+                    _buildCategories(context),
+                    _buildProductGrid(context),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    final cartCount = context.watch<CartProvider>().itemCount;
+    return Row(
+      crossAxisAlignment: .start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: .start,
+            spacing: NumberConstant.homeHeaderSpacing,
+            children: [
+              Text(StringConst.homeHeadlineLineOne, style: AppTextStyles.homeHeadline),
+              Text(StringConst.homeHeadlineLineTwo, style: AppTextStyles.homeHeadline),
+            ],
+          ),
+        ),
+        Stack(
+          clipBehavior: .none,
+          children: [
+            Padding(
+              padding: .all(NumberConstant.cartIconPadding),
+              child: SvgPicture.asset(AssetRes.icCart, colorFilter: .mode(AppColors.blackColor, .srcIn),),
+            ),
+            if (cartCount > 0)
+              Positioned(
+                right: 4,
+                top: 4,
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(color: AppColors.accentColor, shape: .circle),
+                  child: Padding(
+                    padding: .symmetric(horizontal: 5, vertical: 2),
+                    child: Text('$cartCount', style: AppTextStyles.bannerOfferBadge),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSearchField(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: AppColors.searchFillColor,
+        borderRadius: .circular(NumberConstant.searchFieldRadius),
+      ),
+      child: Padding(
+        padding: .symmetric(horizontal: NumberConstant.searchIconPadding, vertical: NumberConstant.smallSpacing),
+        child: Row(
+          spacing: NumberConstant.smallSpacing,
+          children: [
+            SvgPicture.asset(AssetRes.icSearch, colorFilter: .mode(AppColors.blackColor, .srcIn),),
+            Expanded(
+              child: TextField(
+                onChanged: context.read<HomeProvider>().updateSearch,
+                style: AppTextStyles.searchHint.copyWith(color: AppColors.blackColor),
+                cursorColor: AppColors.blackColor,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  border: .none,
+                  hintText: StringConst.searchHint,
+                  hintStyle: AppTextStyles.searchHint,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBanner() {
+    return SizedBox(
+      height: NumberConstant.bannerHeight + NumberConstant.bannerImageOverflowTop,
+      child: Stack(
+        clipBehavior: .none,
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            top: NumberConstant.bannerImageOverflowTop,
+            height: NumberConstant.bannerHeight,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: AppColors.blackColor,
+                borderRadius: .circular(NumberConstant.bannerRadius),
+              ),
+              child: Padding(
+                padding: .all(NumberConstant.bannerContentPadding),
+                child: Column(
+                  crossAxisAlignment: .start,
+                  spacing: NumberConstant.bannerTitleSpacing,
+                  children: [
+                    Column(
+                      crossAxisAlignment: .start,
+                      spacing: NumberConstant.homeHeaderSpacing,
+                      children: [
+                        Text(StringConst.bannerTitleLineOne, style: AppTextStyles.bannerTitle),
+                        Text(StringConst.bannerTitleLineTwo, style: AppTextStyles.bannerTitle),
+                      ],
+                    ),
+                    Row(
+                      spacing: NumberConstant.smallSpacing,
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: AppColors.accentColor,
+                            borderRadius: .circular(NumberConstant.offerBadgeRadius),
+                          ),
+                          child: Padding(
+                            padding: .symmetric(
+                              horizontal: NumberConstant.offerBadgeHorizontalPadding,
+                              vertical: NumberConstant.offerBadgeVerticalPadding,
+                            ),
+                            child: Text(StringConst.bannerOfferPercent, style: AppTextStyles.bannerOfferBadge),
+                          ),
+                        ),
+                        Text(StringConst.bannerOfferLabel, style: AppTextStyles.bannerOfferLabel),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: -NumberConstant.bannerImageOverflowRight,
+            top: 0,
+            width: NumberConstant.bannerImageWidth,
+            height: NumberConstant.bannerHeight + NumberConstant.bannerImageOverflowTop + NumberConstant.bannerImageOverflowBottom,
+            child: Image.asset(AssetRes.classicBlackBanner, fit: .cover),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategories(BuildContext context) {
+    final selectedCategory = context.watch<HomeProvider>().selectedCategory;
+    return Row(
+      spacing: NumberConstant.smallSpacing,
+      children: AppData.categories.map((category) {
+        final isSelected = category == selectedCategory;
+        return Expanded(
+          child: GestureDetector(
+            onTap: () => context.read<HomeProvider>().selectCategory(category),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: isSelected ? AppColors.blackColor : AppColors.surfaceGrayColor,
+                borderRadius: .circular(NumberConstant.chipRadius),
+              ),
+              child: Padding(
+                padding: .symmetric(
+                  horizontal: NumberConstant.chipHorizontalPadding,
+                  vertical: NumberConstant.chipVerticalPadding,
+                ),
+                child: Center(
+                  child: Text(category, style: isSelected ? AppTextStyles.categorySelected : AppTextStyles.categoryUnselected),
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildProductGrid(BuildContext context) {
+    final products = context.watch<HomeProvider>().filteredProducts;
+    final leftProducts = <ProductModel>[];
+    final rightProducts = <ProductModel>[];
+    for (var i = 0; i < products.length; i++) {
+      if (i.isEven) {
+        leftProducts.add(products[i]);
+      } else {
+        rightProducts.add(products[i]);
+      }
+    }
+    return Row(
+      crossAxisAlignment: .start,
+      spacing: NumberConstant.productGridGap,
+      children: [
+        Expanded(
+          child: Column(
+            spacing: NumberConstant.productGridGap,
+            children: leftProducts.map((product) => _buildProductCard(context, product)).toList(),
+          ),
+        ),
+        Expanded(
+          child: Column(
+            spacing: NumberConstant.productGridGap,
+            children: rightProducts.map((product) => _buildProductCard(context, product)).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProductCard(BuildContext context, ProductModel product) {
+    return GestureDetector(
+      onTap: () => context.push('${NamedRoutes.detail.routeName}/${product.id}'),
+      child: Column(
+        crossAxisAlignment: .start,
+        spacing: NumberConstant.productInfoSpacing,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: .circular(NumberConstant.productCardRadius),
+                child: Image.asset(
+                  product.imageAsset,
+                  width: double.infinity,
+                  height: product.isTall ? NumberConstant.productCardTallHeight : NumberConstant.productCardShortHeight,
+                  fit: .cover,
+                ),
+              ),
+              Positioned(
+                top: NumberConstant.productFavoriteInset,
+                right: NumberConstant.productFavoriteInset,
+                child: FavoriteButton(productId: product.id),
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: .start,
+            spacing: NumberConstant.homeHeaderSpacing / 2,
+            children: [
+              Text(product.price, style: AppTextStyles.productPrice),
+              Text(product.name, style: AppTextStyles.productName),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
