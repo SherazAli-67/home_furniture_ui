@@ -26,10 +26,23 @@ class StringConst {
 
   static const productRelaxingChair = 'Relaxing Chair';
   static const productNoirChair = 'Noir Chair';
+  static const productOakTable = 'Oak Table';
+  static const productSoftLamp = 'Soft Lamp';
   static const productRelaxingChairTitle = 'RELAXING CHAIR';
+  static const productNoirChairTitle = 'NOIR CHAIR';
+  static const productOakTableTitle = 'OAK TABLE';
+  static const productSoftLampTitle = 'SOFT LAMP';
   static const productRelaxingChairDescription =
       'Perfect loveseat, sofa and home theater set for your home. Art object that fit your style. Great quality customizable recliners with easy-action recline. Fine leathers and fabrics.';
+  static const productNoirChairDescription =
+      'Bold silhouette with rich noir finish. Built for comfort and statement living rooms.';
+  static const productOakTableDescription =
+      'Solid oak dining table with clean lines. Warm tone that fits modern and classic spaces.';
+  static const productSoftLampDescription =
+      'Soft ambient lamp with a sculpted base. Ideal for bedside and reading corners.';
 
   static const priceRelaxingChair = '\$ 12,107';
   static const priceNoirChair = '\$ 15,217';
+  static const priceOakTable = '\$ 8,450';
+  static const priceSoftLamp = '\$ 2,180';
 }
