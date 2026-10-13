@@ -21,6 +21,14 @@ class AnimationConstant {
   static const homeCardStaggerMs = 60;
   static const homeCardStaggerMaxMs = 240;
   static const bannerSlideBeginDx = 0.4;
+  static const detailTopBarDelayMs = 200;
+  static const detailCategoryDelayMs = 80;
+  static const detailTitleDelayMs = 140;
+  static const detailDescriptionDelayMs = 200;
+  static const detailVariantsDelayMs = 260;
+  static const detailCartDelayMs = 320;
+  static const detailCartPressScale = 0.96;
+  static const favoriteToggleScale = 1.2;
 
   static const easeOutCubic = Curves.easeOutCubic;
   static const easeOut = Curves.easeOut;

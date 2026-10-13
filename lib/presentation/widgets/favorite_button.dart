@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:home_furniture_ui/constants/animation_constant.dart';
 import 'package:home_furniture_ui/constants/number_constant.dart';
 import 'package:home_furniture_ui/core/app_colors.dart';
 import 'package:home_furniture_ui/core/asset_res.dart';
@@ -27,7 +28,17 @@ class FavoriteButton extends StatelessWidget {
         decoration: BoxDecoration(color: backgroundColor, shape: .circle),
         child: Padding(
           padding: .all(padding),
-          child: SvgPicture.asset(AssetRes.icFavorite, colorFilter: .mode(isFavorite ? AppColors.accentColor : AppColors.whiteColor, .srcIn),),
+          child: TweenAnimationBuilder<double>(
+            key: ValueKey(isFavorite),
+            tween: Tween(begin: 0.75, end: 1),
+            duration: const Duration(milliseconds: AnimationConstant.animFast),
+            curve: AnimationConstant.easeOutCubic,
+            builder: (context, scale, child) => Transform.scale(scale: scale, child: child),
+            child: SvgPicture.asset(
+              AssetRes.icFavorite,
+              colorFilter: .mode(isFavorite ? AppColors.accentColor : AppColors.whiteColor, .srcIn),
+            ),
+          ),
         ),
       ),
     );
