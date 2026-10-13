@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_furniture_ui/constants/animation_constant.dart';
 import 'package:home_furniture_ui/constants/number_constant.dart';
 import 'package:home_furniture_ui/constants/string_const.dart';
 import 'package:home_furniture_ui/core/app_colors.dart';
@@ -8,8 +9,8 @@ import 'package:home_furniture_ui/core/app_data.dart';
 import 'package:home_furniture_ui/core/app_textstyles.dart';
 import 'package:home_furniture_ui/core/asset_res.dart';
 import 'package:home_furniture_ui/core/models/product_model.dart';
+import 'package:home_furniture_ui/presentation/widgets/fade_slide_in.dart';
 import 'package:home_furniture_ui/presentation/widgets/favorite_button.dart';
-import 'package:home_furniture_ui/providers/cart_provider.dart';
 import 'package:home_furniture_ui/providers/home_provider.dart';
 import 'package:home_furniture_ui/routing/router.dart';
 import 'package:provider/provider.dart';
@@ -31,20 +32,7 @@ class HomeScreen extends StatelessWidget {
                 NumberConstant.horizontalPadding,
                 NumberConstant.homeBottomPadding,
               ),
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    _buildHeader(context),
-                    const SizedBox(height: 30,),
-                    _buildSearchField(context),
-                    _buildBanner(),
-                    const SizedBox(height: 30,),
-                    _buildCategories(context),
-                    const SizedBox(height: 30,),
-                    _buildProductGrid(context),
-                  ],
-                ),
-              ),
+              sliver: SliverToBoxAdapter(child: _buildContent(context)),
             ),
           ],
         ),
@@ -52,8 +40,37 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildContent(BuildContext context) {
+    return Column(
+      children: [
+        FadeSlideIn(
+          delay: const Duration(milliseconds: AnimationConstant.homeHeaderDelayMs),
+          child: _buildHeader(context),
+        ),
+        const SizedBox(height: 30),
+        FadeSlideIn(
+          delay: const Duration(milliseconds: AnimationConstant.homeSearchDelayMs),
+          child: _buildSearchField(context),
+        ),
+        FadeSlideIn(
+          delay: const Duration(milliseconds: AnimationConstant.homeBannerDelayMs),
+          child: _buildBanner(),
+        ),
+        const SizedBox(height: 30),
+        FadeSlideIn(
+          delay: const Duration(milliseconds: AnimationConstant.homeChipsDelayMs),
+          child: _buildCategories(context),
+        ),
+        const SizedBox(height: 30),
+        FadeSlideIn(
+          delay: const Duration(milliseconds: AnimationConstant.homeGridDelayMs),
+          child: _buildProductGrid(context),
+        ),
+      ],
+    );
+  }
+
   Widget _buildHeader(BuildContext context) {
-    final cartCount = context.watch<CartProvider>().itemCount;
     return Row(
       crossAxisAlignment: .start,
       children: [
@@ -67,9 +84,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        ClipOval(
-          child: Image.asset(AssetRes.profilePicture, height: 52, width: 52),
-        )
+        ClipOval(child: Image.asset(AssetRes.profilePicture, height: 52, width: 52)),
       ],
     );
   }
@@ -85,7 +100,7 @@ class HomeScreen extends StatelessWidget {
         child: Row(
           spacing: NumberConstant.smallSpacing,
           children: [
-            SvgPicture.asset(AssetRes.icSearch, colorFilter: .mode(AppColors.blackColor, .srcIn),),
+            SvgPicture.asset(AssetRes.icSearch, colorFilter: .mode(AppColors.blackColor, .srcIn)),
             Expanded(
               child: TextField(
                 onChanged: context.read<HomeProvider>().updateSearch,
@@ -163,7 +178,12 @@ class HomeScreen extends StatelessWidget {
             right: -NumberConstant.bannerImageOverflowRight,
             top: -20,
             height: NumberConstant.bannerHeight + NumberConstant.bannerImageOverflowTop + NumberConstant.bannerImageOverflowBottom,
-            child: Image.asset(AssetRes.classicBlackBanner, ),
+            child: FadeSlideIn(
+              delay: const Duration(milliseconds: AnimationConstant.homeBannerDelayMs),
+              duration: const Duration(milliseconds: AnimationConstant.animSlow),
+              begin: const Offset(AnimationConstant.bannerSlideBeginDx, 0),
+              child: Image.asset(AssetRes.classicBlackBanner),
+            ),
           ),
         ],
       ),
@@ -179,18 +199,23 @@ class HomeScreen extends StatelessWidget {
         return Expanded(
           child: GestureDetector(
             onTap: () => context.read<HomeProvider>().selectCategory(category),
-            child: DecoratedBox(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: AnimationConstant.animFast),
+              curve: AnimationConstant.easeOutCubic,
               decoration: BoxDecoration(
                 color: isSelected ? AppColors.blackColor : AppColors.surfaceGrayColor,
                 borderRadius: .circular(NumberConstant.chipRadius),
               ),
-              child: Padding(
-                padding: .symmetric(
-                  horizontal: NumberConstant.chipHorizontalPadding,
-                  vertical: NumberConstant.chipVerticalPadding,
-                ),
-                child: Center(
-                  child: Text(category, style: isSelected ? AppTextStyles.categorySelected : AppTextStyles.categoryUnselected),
+              padding: .symmetric(
+                horizontal: NumberConstant.chipHorizontalPadding,
+                vertical: NumberConstant.chipVerticalPadding,
+              ),
+              child: Center(
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: AnimationConstant.animFast),
+                  curve: AnimationConstant.easeOutCubic,
+                  style: isSelected ? AppTextStyles.categorySelected : AppTextStyles.categoryUnselected,
+                  child: Text(category),
                 ),
               ),
             ),
@@ -201,7 +226,8 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildProductGrid(BuildContext context) {
-    final products = context.watch<HomeProvider>().filteredProducts;
+    final homeProvider = context.watch<HomeProvider>();
+    final products = homeProvider.filteredProducts;
     final leftProducts = <ProductModel>[];
     final rightProducts = <ProductModel>[];
     for (var i = 0; i < products.length; i++) {
@@ -211,60 +237,81 @@ class HomeScreen extends StatelessWidget {
         rightProducts.add(products[i]);
       }
     }
-    return Row(
-      crossAxisAlignment: .start,
-      spacing: NumberConstant.productGridGap,
-      children: [
-        Expanded(
-          child: Column(
-            spacing: NumberConstant.productGridGap,
-            children: leftProducts.map((product) => _buildProductCard(context, product)).toList(),
-          ),
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: AnimationConstant.animNormal),
+      switchInCurve: AnimationConstant.easeOutCubic,
+      switchOutCurve: AnimationConstant.easeOut,
+      child: KeyedSubtree(
+        key: ValueKey('${homeProvider.selectedCategory}_${homeProvider.searchQuery}'),
+        child: Row(
+          crossAxisAlignment: .start,
+          spacing: NumberConstant.productGridGap,
+          children: [
+            Expanded(
+              child: Column(
+                spacing: NumberConstant.productGridGap,
+                children: [
+                  for (var i = 0; i < leftProducts.length; i++)
+                    _buildProductCard(context, leftProducts[i], i * 2),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                spacing: NumberConstant.productGridGap,
+                children: [
+                  for (var i = 0; i < rightProducts.length; i++)
+                    _buildProductCard(context, rightProducts[i], i * 2 + 1),
+                ],
+              ),
+            ),
+          ],
         ),
-        Expanded(
-          child: Column(
-            spacing: NumberConstant.productGridGap,
-            children: rightProducts.map((product) => _buildProductCard(context, product)).toList(),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
-  Widget _buildProductCard(BuildContext context, ProductModel product) {
-    return GestureDetector(
-      onTap: () => context.push('${NamedRoutes.detail.routeName}/${product.id}'),
-      child: Column(
-        crossAxisAlignment: .start,
-        spacing: NumberConstant.productInfoSpacing,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: .circular(NumberConstant.productCardRadius),
-                child: Image.asset(
-                  product.imageAsset,
-                  width: double.infinity,
-                  height: product.isTall ? NumberConstant.productCardTallHeight : NumberConstant.productCardShortHeight,
-                  fit: .cover,
+  Widget _buildProductCard(BuildContext context, ProductModel product, int index) {
+    final staggerMs = (index * AnimationConstant.homeCardStaggerMs).clamp(0, AnimationConstant.homeCardStaggerMaxMs);
+    return FadeSlideIn(
+      delay: Duration(milliseconds: staggerMs),
+      child: GestureDetector(
+        onTap: () => context.push('${NamedRoutes.detail.routeName}/${product.id}'),
+        child: Column(
+          crossAxisAlignment: .start,
+          spacing: NumberConstant.productInfoSpacing,
+          children: [
+            Stack(
+              children: [
+                Hero(
+                  tag: AnimationConstant.productHeroTag(product.id),
+                  child: ClipRRect(
+                    borderRadius: .circular(NumberConstant.productCardRadius),
+                    child: Image.asset(
+                      product.imageAsset,
+                      width: double.infinity,
+                      height: product.isTall ? NumberConstant.productCardTallHeight : NumberConstant.productCardShortHeight,
+                      fit: .cover,
+                    ),
+                  ),
                 ),
-              ),
-              Positioned(
-                top: NumberConstant.productFavoriteInset,
-                right: NumberConstant.productFavoriteInset,
-                child: FavoriteButton(productId: product.id),
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: .start,
-            spacing: NumberConstant.homeHeaderSpacing / 2,
-            children: [
-              Text(product.price, style: AppTextStyles.productPrice),
-              Text(product.name, style: AppTextStyles.productName),
-            ],
-          ),
-        ],
+                Positioned(
+                  top: NumberConstant.productFavoriteInset,
+                  right: NumberConstant.productFavoriteInset,
+                  child: FavoriteButton(productId: product.id),
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: .start,
+              spacing: NumberConstant.homeHeaderSpacing / 2,
+              children: [
+                Text(product.price, style: AppTextStyles.productPrice),
+                Text(product.name, style: AppTextStyles.productName),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

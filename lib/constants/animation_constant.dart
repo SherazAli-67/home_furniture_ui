@@ -13,8 +13,18 @@ class AnimationConstant {
   static const welcomePulseScale = 1.04;
   static const welcomePressScale = 0.92;
   static const welcomeArrowSlideBegin = -0.12;
+  static const homeHeaderDelayMs = 0;
+  static const homeSearchDelayMs = 80;
+  static const homeBannerDelayMs = 160;
+  static const homeChipsDelayMs = 240;
+  static const homeGridDelayMs = 320;
+  static const homeCardStaggerMs = 60;
+  static const homeCardStaggerMaxMs = 240;
+  static const bannerSlideBeginDx = 0.4;
 
   static const easeOutCubic = Curves.easeOutCubic;
   static const easeOut = Curves.easeOut;
   static const emphasized = Curves.easeOutCubic;
+
+  static String productHeroTag(String productId) => 'product-image-$productId';
 }
