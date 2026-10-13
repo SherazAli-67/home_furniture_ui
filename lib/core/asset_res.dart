@@ -5,6 +5,7 @@ class AssetRes {
   static const welcomeImg = '${_imagesPath}welcome_img.png';
   static const detailScreenImg = '${_imagesPath}detail_screen_img.png';
   static const classicBlackBanner = '${_imagesPath}ic_classic_black_banner.png';
+  static const profilePicture = '${_imagesPath}profile_picture.jpeg';
 
   static const icArrowBack = '${_iconsPath}ic_arrow_back.svg';
   static const icCart = '${_iconsPath}ic_cart.svg';

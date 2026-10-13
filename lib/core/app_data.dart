@@ -29,21 +29,23 @@ class AppData {
       ],
       isTall: true,
     ),
+
     ProductModel(
-      id: '2',
-      name: StringConst.productNoirChair,
-      title: StringConst.productNoirChairTitle,
-      price: StringConst.priceNoirChair,
-      category: StringConst.categoryChair,
-      imageAsset: AssetRes.detailScreenImg,
-      description: StringConst.productNoirChairDescription,
+      id: '4',
+      name: StringConst.productSoftLamp,
+      title: StringConst.productSoftLampTitle,
+      price: StringConst.priceSoftLamp,
+      category: StringConst.categoryLamp,
+      imageAsset: AssetRes.welcomeImg,
+      description: StringConst.productSoftLampDescription,
       colors: [
         AppColors.accentColor,
-        Color(0xFF1A1A1A),
-        Color(0xFF4A3F35),
-        Color(0xFFC4B7A6),
+        Color(0xFF3D3D3D),
+        Color(0xFFBFA98A),
+        Color(0xFFF5F0E8),
       ],
     ),
+
     ProductModel(
       id: '3',
       name: StringConst.productOakTable,
@@ -61,20 +63,21 @@ class AppData {
       isTall: true,
     ),
     ProductModel(
-      id: '4',
-      name: StringConst.productSoftLamp,
-      title: StringConst.productSoftLampTitle,
-      price: StringConst.priceSoftLamp,
-      category: StringConst.categoryLamp,
-      imageAsset: AssetRes.welcomeImg,
-      description: StringConst.productSoftLampDescription,
+      id: '2',
+      name: StringConst.productNoirChair,
+      title: StringConst.productNoirChairTitle,
+      price: StringConst.priceNoirChair,
+      category: StringConst.categoryChair,
+      imageAsset: AssetRes.detailScreenImg,
+      description: StringConst.productNoirChairDescription,
       colors: [
         AppColors.accentColor,
-        Color(0xFF3D3D3D),
-        Color(0xFFBFA98A),
-        Color(0xFFF5F0E8),
+        Color(0xFF1A1A1A),
+        Color(0xFF4A3F35),
+        Color(0xFFC4B7A6),
       ],
     ),
+
   ];
 
   static ProductModel? productById(String id) {

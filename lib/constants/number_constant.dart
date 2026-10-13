@@ -10,7 +10,7 @@ class NumberConstant {
   static const searchFieldRadius = 109.0;
   static const searchIconPadding = 20.0;
 
-  static const bannerHeight = 190.0;
+  static const bannerHeight = 195.0;
   static const bannerRadius = 17.0;
   static const bannerContentPadding = 26.0;
 
@@ -30,18 +30,23 @@ class NumberConstant {
   static const favoriteIconInset = 8.0;
 
   static const detailHeroHeight = 548.0;
+  static const detailSheetOverlap = 40.0;
   static const detailSheetRadius = 0.0;
   static const detailTopBarPadding = 26.0;
   static const detailActionPadding = 13.0;
   static const detailCategoryHorizontalPadding = 13.0;
   static const detailCategoryVerticalPadding = 9.0;
   static const detailCategoryRadius = 8.0;
-  static const variantSize = 30.0;
-  static const variantInnerSize = 24.0;
+  static const detailSectionSpacing = 22.0;
+  static const detailTitleSpacing = 18.0;
+  static const detailVariantsSpacing = 18.0;
+  static const variantPadding = 3.0;
+  static const variantInnerPadding = 10.0;
   static const variantSpacing = 20.0;
-  static const cartButtonHeight = 66.0;
-  static const cartButtonRadius = 0.0;
+  static const variantSelectedBorderWidth = 2.0;
+  static const cartButtonVerticalPadding = 18.0;
   static const cartButtonIconSpacing = 13.0;
+  static const detailBottomPadding = 24.0;
 
   static const welcomeCtaSize = 126.0;
   static const welcomeCtaOutlineSize = 133.0;
@@ -65,7 +70,7 @@ class NumberConstant {
   static const cartIconPadding = 12.0;
   static const homeBottomPadding = 16.0;
   static const bannerImageWidth = 210.0;
-  static const bannerImageOverflowRight = 24.0;
-  static const bannerImageOverflowTop = 32.0;
+  static const bannerImageOverflowRight = 34.0;
+  static const bannerImageOverflowTop = 40.0;
   static const bannerImageOverflowBottom = 24.0;
 }

@@ -33,12 +33,14 @@ class HomeScreen extends StatelessWidget {
               ),
               sliver: SliverToBoxAdapter(
                 child: Column(
-                  spacing: NumberConstant.homeSectionSpacing,
                   children: [
                     _buildHeader(context),
+                    const SizedBox(height: 30,),
                     _buildSearchField(context),
                     _buildBanner(),
+                    const SizedBox(height: 30,),
                     _buildCategories(context),
+                    const SizedBox(height: 30,),
                     _buildProductGrid(context),
                   ],
                 ),
@@ -65,27 +67,9 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        Stack(
-          clipBehavior: .none,
-          children: [
-            Padding(
-              padding: .all(NumberConstant.cartIconPadding),
-              child: SvgPicture.asset(AssetRes.icCart, colorFilter: .mode(AppColors.blackColor, .srcIn),),
-            ),
-            if (cartCount > 0)
-              Positioned(
-                right: 4,
-                top: 4,
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(color: AppColors.accentColor, shape: .circle),
-                  child: Padding(
-                    padding: .symmetric(horizontal: 5, vertical: 2),
-                    child: Text('$cartCount', style: AppTextStyles.bannerOfferBadge),
-                  ),
-                ),
-              ),
-          ],
-        ),
+        ClipOval(
+          child: Image.asset(AssetRes.profilePicture, height: 52, width: 52),
+        )
       ],
     );
   }
@@ -177,10 +161,9 @@ class HomeScreen extends StatelessWidget {
           ),
           Positioned(
             right: -NumberConstant.bannerImageOverflowRight,
-            top: 0,
-            width: NumberConstant.bannerImageWidth,
+            top: -20,
             height: NumberConstant.bannerHeight + NumberConstant.bannerImageOverflowTop + NumberConstant.bannerImageOverflowBottom,
-            child: Image.asset(AssetRes.classicBlackBanner, fit: .cover),
+            child: Image.asset(AssetRes.classicBlackBanner, ),
           ),
         ],
       ),

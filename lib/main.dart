@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_furniture_ui/constants/string_const.dart';
 import 'package:home_furniture_ui/core/app_colors.dart';
 import 'package:home_furniture_ui/providers/cart_provider.dart';
+import 'package:home_furniture_ui/providers/detail_provider.dart';
 import 'package:home_furniture_ui/providers/favorites_provider.dart';
 import 'package:home_furniture_ui/providers/home_provider.dart';
 import 'package:home_furniture_ui/routing/router.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FavoritesProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => DetailProvider()),
 
       ],
       child: MaterialApp.router(

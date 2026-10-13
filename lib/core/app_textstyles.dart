@@ -40,7 +40,7 @@ class AppTextStyles {
 
   static const bannerTitle = TextStyle(
     fontFamily: StringConst.appFontFamily,
-    fontSize: 39,
+    fontSize: 34,
     height: 1,
     letterSpacing: 0.78,
     color: AppColors.whiteColor,
